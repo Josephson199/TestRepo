@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DiagnosticTestAspNet2Project.Data;
 using DiagnosticTestAspNet2Project.Models;
+using DiagnosticTestAspNet2Project.Services;
 using Microsoft.Extensions.Logging;
 
 namespace DiagnosticTestAspNet2Project.Controllers
@@ -15,11 +16,13 @@ namespace DiagnosticTestAspNet2Project.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<ProductsController> _logger;
+        private readonly ProductCategoryService _productCategoryService;
 
-        public ProductsController(ApplicationDbContext context, ILogger<ProductsController> logger)
+        public ProductsController(ApplicationDbContext context, ILogger<ProductsController> logger, ProductCategoryService productCategoryService)
         {
             _context = context;
             _logger = logger;
+            _productCategoryService = productCategoryService;
         }
 
         // GET: Products
@@ -50,12 +53,8 @@ namespace DiagnosticTestAspNet2Project.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            //Categories = new SelectList(_context.ProductCategory.Select(x => new { Id = x.Id, Value = x.Name }), "Id", "Value")
-            
-         
-            ViewBag.ProductCategories =
-                new SelectList(_context.ProductCategories.Select(x => new {Id = x.ProductCategoryId, Value = x.Name}),
-                    "Id", "Value");
+            ViewBag.ProductCategories = _productCategoryService.GetSelectList();
+               
             return View();
         }
 
@@ -89,9 +88,7 @@ namespace DiagnosticTestAspNet2Project.Controllers
                 return NotFound();
             }
 
-            ViewBag.ProductCategories =
-                new SelectList(_context.ProductCategories.Select(x => new { Id = x.ProductCategoryId, Value = x.Name }),
-                    "Id", "Value");
+            ViewBag.ProductCategories = _productCategoryService.GetSelectList();
             return View(product);
         }
 

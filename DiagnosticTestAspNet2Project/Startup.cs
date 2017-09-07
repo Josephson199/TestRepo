@@ -38,6 +38,7 @@ namespace DiagnosticTestAspNet2Project
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<ProductCategoryService>();
 
             services.AddMvc();
         }

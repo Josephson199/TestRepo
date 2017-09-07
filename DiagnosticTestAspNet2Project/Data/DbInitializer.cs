@@ -22,7 +22,7 @@ namespace DiagnosticTestAspNet2Project.Data
             };
             var vhs = new ProductCategory
             {
-                Name = "vhs",
+                Name = "VHS",
                 ProductCategoryId = 3
             };
             var productCategories = new List<ProductCategory> { tv, dvd, vhs };
