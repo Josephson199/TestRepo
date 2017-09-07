@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    SelectList list = ViewBag.ProductCategories;
 }
 
 <h2>Edit</h2>
@@ -22,6 +23,9 @@
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.DropDownList("ProductCategoryId", list, "Categories")
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

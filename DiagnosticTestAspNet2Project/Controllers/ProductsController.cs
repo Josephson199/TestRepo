@@ -46,6 +46,12 @@ namespace DiagnosticTestAspNet2Project.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            //Categories = new SelectList(_context.ProductCategory.Select(x => new { Id = x.Id, Value = x.Name }), "Id", "Value")
+            
+         
+            ViewBag.ProductCategories =
+                new SelectList(_context.ProductCategories.Select(x => new {Id = x.ProductCategoryId, Value = x.Name}),
+                    "Id", "Value");
             return View();
         }
 
@@ -54,7 +60,7 @@ namespace DiagnosticTestAspNet2Project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Name,Price")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,Name,Price,ProductCategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -78,6 +84,10 @@ namespace DiagnosticTestAspNet2Project.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.ProductCategories =
+                new SelectList(_context.ProductCategories.Select(x => new { Id = x.ProductCategoryId, Value = x.Name }),
+                    "Id", "Value");
             return View(product);
         }
 
@@ -86,7 +96,7 @@ namespace DiagnosticTestAspNet2Project.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Price")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Price, ProductCategoryId")] Product product)
         {
             if (id != product.ProductId)
             {
