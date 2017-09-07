@@ -7,21 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DiagnosticTestAspNet2Project.Data;
 using DiagnosticTestAspNet2Project.Models;
+using Microsoft.Extensions.Logging;
 
 namespace DiagnosticTestAspNet2Project.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<ProductsController> _logger;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context, ILogger<ProductsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
+            _logger.LogWarning("With great powers comes great responsibilities");
             return View(await _context.Products.ToListAsync());
         }
 
