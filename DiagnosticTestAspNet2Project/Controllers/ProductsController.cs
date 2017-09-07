@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DiagnosticTestAspNet2Project.Data;
 using DiagnosticTestAspNet2Project.Models;
@@ -40,7 +37,7 @@ namespace DiagnosticTestAspNet2Project.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Products.Include(p => p.ProductCategory)
                 .SingleOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
