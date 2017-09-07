@@ -13,6 +13,7 @@ namespace DiagnosticTestAspNet2Project.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -22,5 +23,7 @@ namespace DiagnosticTestAspNet2Project.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<Product> Products { get; set; }
     }
 }
