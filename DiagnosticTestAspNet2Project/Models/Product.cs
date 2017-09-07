@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 
 namespace DiagnosticTestAspNet2Project.Models
@@ -13,5 +14,7 @@ namespace DiagnosticTestAspNet2Project.Models
         public string Name { get; set; }
         [Range(5, 1000)]
         public decimal Price { get; set; }
+        public int ProductCategoryId { get; set; }
+        public ProductCategory ProductCategory { get; set; }
     }
 }
